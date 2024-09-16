@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-#login-form, #game-area, #leaderboard {
+#login-form, #game-container, #leaderboard {
     text-align: center;
     margin-top: 50px;
 }
@@ -12,20 +12,36 @@ body {
     margin-right: 10px;
 }
 
-#game-area {
+#game-container {
     position: relative;
+}
+
+#game-area {
     width: 80vw;
     height: 80vh;
-    height: 400px;
+    margin: 0 auto;
+    border: 2px solid #000;
+    position: relative;
+    background-color: #f0f0f0;
+}
+
+#timer, #score {
+    font-size: 1.5em;
+    margin: 10px 0;
 }
 
 .coin {
+    position: absolute;
     width: 40px;
     height: 40px;
-    background: gold;
-    position: absolute;
+    background-color: gold;
     border-radius: 50%;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#leaderboard {
+    padding: 20px;
 }
 
 #leaderboard-list {
