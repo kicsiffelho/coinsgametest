@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Connect to MongoDB
-const mongoUri = process.env.MONGO_URI || 'mongodb+srv://kicsiffelho:7VP7vnwoZjjMcRQS@coinclicker-cluster.ekzvo.mongodb.net/?retryWrites=true&w=majority&appName=coinclicker-cluster';
+const mongoUri = process.env.MONGO_URI || 'mongodb+srv://kicsiffelho:7VP7vnwoZjjMcRQS@cluster0.mongodb.net/coinclicker-db?retryWrites=true&w=majority';
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Failed to connect to MongoDB', err));
