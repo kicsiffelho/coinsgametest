@@ -45,10 +45,9 @@ function updateTimer() {
     if (timeLeft <= 0) {
         clearInterval(coinInterval);
         clearInterval(timerInterval);
+        scoreDisplay.textContent = `Final score: ${score}`;
     }
 }
-
-scoreDisplay.textContent = `Final score: ${score}`;
 
 // Generate coins at intervals
 const coinInterval = setInterval(createCoin, 1000);
