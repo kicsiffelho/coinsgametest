@@ -3,6 +3,36 @@ let timeLeft = 10;
 const gameArea = document.getElementById('game-area');
 const scoreDisplay = document.getElementById('score');
 const timerDisplay = document.getElementById('timer');
+const loginForm = document.getElementById('login-form');
+const playerNameInput = document.getElementById('player-name');
+const leaderboardDiv = document.getElementById('leaderboard');
+const leaderboardList = document.getElementById('leaderboard-list');
+
+// Show the login form
+function showLoginForm() {
+    loginForm.style.display = 'block';
+    gameArea.style.display = 'none';
+    leaderboardDiv.style.display = 'none';
+}
+
+// Start the game
+function startGame() {
+    playerName = playerNameInput.value.trim();
+    if (!playerName) {
+        alert('Please enter a name!');
+        return;
+    }
+
+    loginForm.style.display = 'none';
+    gameArea.style.display = 'block';
+    leaderboardDiv.style.display = 'none'
+
+    createCoin();
+
+    // Generate coins at intervals
+    const coinInterval = setInterval(createCoin, 1000);
+    const timerInterval = setInterval(updateTimer, 1000);
+}
 
 // Generate random coin position
 function generateRandomPosition() {
@@ -45,9 +75,45 @@ function updateTimer() {
     if (timeLeft <= 0) {
         clearInterval(coinInterval);
         clearInterval(timerInterval);
+        submitScore();
     }
 }
 
-// Generate coins at intervals
-const coinInterval = setInterval(createCoin, 1000);
-const timerInterval = setInterval(updateTimer, 1000);
+// Submit score to backend and show leaderboard
+function submitScore() {
+    fetch('https://coinsgametest.onrender.com/add-score', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ playerName, score })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(`Time's up, ${playerName}! Your final score is ${score}`);
+        showLeaderboard();
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Show leaderboard
+function showLeaderboard() {
+    loginForm.style.display = 'none';
+    gameArea.style.display = 'none';
+    leaderboardDiv.style.display = 'block';
+
+    fetch('https://your-backend-url.com/leaderboard')
+    .then(response => response.json())
+    .then(data => {
+        leaderboardList.innerHTML = '';
+        data.forEach(entry => {
+            const li = document.createElement('li');
+            li.textContent = `${entry.playerName}: ${entry.score}`;
+            leaderboardList.appendChild(li);
+        });
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Initialize the page
+showLoginForm();
