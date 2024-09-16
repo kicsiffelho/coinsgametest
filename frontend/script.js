@@ -1,5 +1,9 @@
 let score = 0;
 let timeLeft = 10;
+let coinInterval;
+let timerInterval;
+let playerName = '';  // Declare playerName outside of functions
+
 const gameArea = document.getElementById('game-area');
 const scoreDisplay = document.getElementById('score');
 const timerDisplay = document.getElementById('timer');
@@ -25,20 +29,25 @@ function startGame() {
 
     loginForm.style.display = 'none';
     gameArea.style.display = 'block';
-    leaderboardDiv.style.display = 'none'
+    leaderboardDiv.style.display = 'none';
+
+    score = 0;  // Reset score
+    timeLeft = 10;  // Reset timeLeft
+    scoreDisplay.textContent = `Score: ${score}`;
+    timerDisplay.textContent = `Time Left: ${timeLeft}s`;
 
     createCoin();
 
     // Generate coins at intervals
-    const coinInterval = setInterval(createCoin, 1000);
-    const timerInterval = setInterval(updateTimer, 1000);
+    coinInterval = setInterval(createCoin, 1000);
+    timerInterval = setInterval(updateTimer, 1000);
 }
 
 // Generate random coin position
 function generateRandomPosition() {
     const x = Math.random() * (gameArea.offsetWidth - 40);
     const y = Math.random() * (gameArea.offsetHeight - 40);
-    return { x, y};
+    return { x, y };
 }
 
 // Create and place coins in game area
@@ -70,6 +79,8 @@ function createCoin() {
 
 // Update timer and end the game
 function updateTimer() {
+    if (timeLeft <= 0) return;
+
     timeLeft--;
     timerDisplay.textContent = `Time Left: ${timeLeft}s`;
     if (timeLeft <= 0) {
@@ -102,7 +113,7 @@ function showLeaderboard() {
     gameArea.style.display = 'none';
     leaderboardDiv.style.display = 'block';
 
-    fetch('https://your-backend-url.com/leaderboard')
+    fetch('https://coinsgametest.onrender.com/leaderboard')
     .then(response => response.json())
     .then(data => {
         leaderboardList.innerHTML = '';
