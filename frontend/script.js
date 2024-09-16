@@ -1,5 +1,5 @@
 let score = 0;
-let timeLeft = 60;
+let timeLeft = 10;
 const gameArea = document.getElementById('game-area');
 const scoreDisplay = document.getElementById('score');
 const timerDisplay = document.getElementById('timer');
@@ -45,7 +45,6 @@ function updateTimer() {
     if (timeLeft <= 0) {
         clearInterval(coinInterval);
         clearInterval(timerInterval);
-        alert(`Time's up! Your final score is ${score}`);
     }
 }
 
