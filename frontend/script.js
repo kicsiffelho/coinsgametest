@@ -92,6 +92,7 @@ function updateTimer() {
 }
 
 // Submit score to backend and show leaderboard
+// Submit score to backend and show leaderboard
 function submitScore() {
     fetch('https://coinsgametest.onrender.com/add-score', {
         method: 'POST',
@@ -102,10 +103,13 @@ function submitScore() {
     })
     .then(response => response.json())
     .then(data => {
+        console.log('Score submitted successfully:', data);
         alert(`Time's up, ${playerName}! Your final score is ${score}`);
         showLeaderboard();
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error submitting score:', error);
+    });
 }
 
 // Show leaderboard
