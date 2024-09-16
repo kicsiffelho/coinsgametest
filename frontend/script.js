@@ -1,4 +1,5 @@
 let score = 0;
+let timeLeft = 60;
 const gameArea = document.getElementById('game-area');
 const scoreDisplay = document.getElementById('score');
 
@@ -6,12 +7,15 @@ const scoreDisplay = document.getElementById('score');
 function generateRandomPosition() {
     const x = Math.floor(Math.random() * (gameArea.offsetWidth - 40));
     const y = Math.floor(Math.random() * (gameArea.offsetHeight - 40));
+    console.log(`Coin position: (${x}, ${y})`);
     return ( x, y );
 }
 
 // Create and place coins in game area
 function createCoin() {
-    const coin = document.getElementById('div');
+    if (timeLeft <= 0) return;
+
+    const coin = document.createElement('div');
     coin.classList.add('coin');
     const { x, y } = generateRandomPosition();
     coin.style.left = `${x}px`;
@@ -34,5 +38,17 @@ function createCoin() {
     }, 2000);
 }
 
+// Update timer and end the game
+function updateTimer() {
+    timeLeft--;
+    document.getElementById('timer').textContent = `Time Left: ${timeLeft}s`;
+    if (timeLeft <= 0) {
+        clearInterval(coinInterval);
+        clearInterval(timerInterval);
+        alert(`Time's up! Your final score is ${score}`);
+    }
+}
+
 // Generate coins at intervals
-setInterval(createCoin, 1000);
+const coinInterval = setInterval(createCoin, 1000);
+const timerInterval = setInterval(updateTimer, 1000);
