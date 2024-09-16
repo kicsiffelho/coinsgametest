@@ -1,0 +1,21 @@
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+#game-area {
+    width: 80vw;
+    height: 80vh;
+    margin: 0 auto;
+    border: 2px solid #000;
+    position: relative;
+    background-color: #f0f0f0;
+}
+
+.coin {
+    width: 40px;
+    height: 40px;
+    background-color: gold;
+    border-radius: 50%;
+    position: absolute;
+}
