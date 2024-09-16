@@ -4,6 +4,7 @@ let coinInterval;
 let timerInterval;
 let playerName = '';  // Declare playerName outside of functions
 
+const gameContainer = document.getElementById('game-container');
 const gameArea = document.getElementById('game-area');
 const scoreDisplay = document.getElementById('score');
 const timerDisplay = document.getElementById('timer');
@@ -15,7 +16,7 @@ const leaderboardList = document.getElementById('leaderboard-list');
 // Show the login form
 function showLoginForm() {
     loginForm.style.display = 'block';
-    gameArea.style.display = 'none';
+    gameContainer.style.display = 'none';
     leaderboardDiv.style.display = 'none';
 }
 
@@ -28,7 +29,7 @@ function startGame() {
     }
 
     loginForm.style.display = 'none';
-    gameArea.style.display = 'block';
+    gameContainer.style.display = 'block';
     leaderboardDiv.style.display = 'none';
 
     score = 0;  // Reset score
@@ -110,7 +111,7 @@ function submitScore() {
 // Show leaderboard
 function showLeaderboard() {
     loginForm.style.display = 'none';
-    gameArea.style.display = 'none';
+    gameContainer.style.display = 'none';
     leaderboardDiv.style.display = 'block';
 
     fetch('https://coinsgametest.onrender.com/leaderboard')
